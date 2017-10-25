@@ -1,0 +1,691 @@
+// Media Queries
+@desktop:   ~"only screen and (min-width: 601px) and (min-height: 501px)";
+@mobile:    ~"only screen and (max-width: 600px), screen and (max-height: 500px)";
+
+// Colors
+@mostaza: #EE8528;
+@white: #fff;
+@black: #000;
+@text: #002448;
+@lightBase: #E6E6E6;
+@darkBase: #444;
+@callGreen: #3c763d;
+
+// Fonts
+@font-face {
+	font-family: 'Baloo Tamma';
+	src: url('fonts/BalooTamma-Regular.eot');
+	src: url('fonts/BalooTamma-Regular.eot?#iefix') format('embedded-opentype'), 
+	url('fonts/BalooTamma-Regular.woff2') format('woff2'), 
+	url('fonts/BalooTamma-Regular.woff') format('woff'), 
+	url('fonts/BalooTamma-Regular.ttf')  format('truetype'), 
+	url('fonts/BalooTamma-Regular.svg#svgFontName') format('svg');
+}
+
+// Mixins
+.clientDataOverImage {
+	text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+	color: darken(#007FB2, 30%);
+	left: 0;
+	@media @mobile {
+		background: fade(lightgray, 60%);
+	}
+}
+
+/* GENERAL PROPERTIES */ 
+* {
+	margin: 0;
+	padding: 0;
+	font: 12pt Arial;
+	user-select: none;
+	cursor: default;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+body {
+	min-height: 100vh;
+	@media @mobile {
+		padding-top: 60px;
+		background-color: @darkBase;
+	}
+	@media @desktop {
+		padding-top: 85px;
+		background-color: @darkBase;
+	}
+
+	&::after {
+		content: "";
+		background: url("../images/backgroundPattern.png");
+		opacity: 0.2;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		position: fixed;
+		z-index: -1;
+	}
+
+	/* Any page but product listing page*/
+	&.notShowingProducts {
+		overflow: hidden;
+	}
+}
+
+/* SEARCH BOX */
+#searchBox {
+	display:flex;
+	flex-direction:row;
+	-webkit-box-shadow: 0px 0px 15px 0px black;
+	-moz-box-shadow:    0px 0px 15px 0px black;
+	box-shadow:         0px 0px 15px 0px black;
+	z-index: 1;
+	@media @desktop {
+		position: static;
+		margin: 0 auto 70px;
+		width: 60vw;
+	}
+	@media @mobile {
+		position: fixed;
+		top: 0;
+		width: 100vw;
+		-webkit-transition: top 0.3s; /* Safari */
+		transition: top 0.3s;
+	}
+
+	&.nav-up {
+		@media @mobile {
+			transition-timing-function: ease-in;
+			top: -50px;
+		}
+	}
+
+	&.nav-down {
+		@media @mobile {
+			transition-timing-function: ease-out;
+			top: 0;
+		}
+	}
+
+	#searchterm {
+		width: 0;
+		height: 47px;
+	}
+
+	&>input[type=text],
+	&>button {
+		display:block;
+		font-family: 'Baloo Tamma';
+	}
+
+	&>input[type=text] {
+		flex:1;
+		padding:0.6em;
+		border:0.2em solid @mostaza;
+	}
+
+	&>button {
+		padding:0.6em 0.8em;
+		background-color: @mostaza;
+		border:none;
+		img {
+			width: 25px;	
+		}
+	}
+}
+
+.logo {
+	width: 40vw;
+	@media @desktop {
+		width: 12vw;
+	}
+}
+
+/* LOADING SCREEN */
+#loadingScreen {
+	font-family: 'Baloo Tamma';
+	font-weight: lighter;
+	color: @mostaza;
+	text-align: center;
+}
+
+#loadingSpinner {
+	width: 64px;
+}
+
+/* HOME SCREEN */
+#homeScreen {
+	/* NO FOCUS ON SEARCH BOX */
+	.promotionalText {
+		width: 90vw;
+		left: 5vw;
+		bottom: 60vh;
+		@media @desktop {
+			width: 50vw;
+		}
+	}
+
+	/* FOCUS ON SEARCH BOX */
+	&.isSearchBoxFocused {
+		.promotionalText {
+			@media @mobile {
+				top: 40vh;
+			}
+		}
+
+		.logo{
+			@media @mobile {
+				display: none;
+			}
+		}
+	}
+}
+
+/* NO RESULTS SCREEN */
+#noResultsScreen {
+	.noResultsHeader{
+		font-family: 'Baloo Tamma';
+		font-weight: lighter;
+		color: @mostaza;
+		text-align: center;
+		@media @desktop {
+			padding: 0 20vw;
+		}
+	}
+
+	.logo {
+		@media @mobile {
+			max-width: 120px;
+		}
+	}
+
+	&.isSearchBoxFocused {
+		.logo{
+			@media @mobile {
+				display: none;
+			}
+		}
+	}
+}
+
+/* RESULTS SCREEN */
+#resultsScreen {
+	.clientCard {
+		background-color: white;
+		-webkit-box-shadow: 0px 0px 15px 0px black;
+		-moz-box-shadow:    0px 0px 15px 0px black;
+		box-shadow:         0px 0px 15px 0px black;
+		position: relative;
+		@media @mobile {
+			margin: 0 10px 20px;
+			padding: 5px;
+			overflow: hidden;
+		}
+		@media @desktop {
+			width: 80%;
+			margin: 30px 10%;
+			min-height: 300px;
+		}
+
+		.clientInfo {
+			width: 100%;
+			height: 260px;
+			position: relative;
+			@media @desktop {
+				position: static;
+				margin: 30px 10px;
+				float: left;
+				width: 250px;
+				height: 250px;
+			}
+
+			.clientImage {
+				width: 100%;
+				height: 100%;
+				background-image: url("../images/logo.png");
+				background-repeat: no-repeat;
+				background-size: 150px;
+				background-position: center;
+				background-color: @darkBase;
+			}
+
+			.clientName {
+				.clientDataOverImage;
+				width: 100%;
+				text-align: center;
+				font-family: 'Baloo Tamma';
+				position: absolute;
+				top: 0;
+				@media @mobile {
+					background: transparent;
+				}
+				@media @desktop {
+					width: 270px;
+					top: 18px;
+				}
+			}
+
+			.contacto {
+				padding-right: 10px;
+				padding-left: 10px;
+				width: 100%;
+				position: absolute;
+				bottom: 0;
+				.clientDataOverImage;
+				@media @desktop {
+					width: 251px;
+					margin-left: 10px;
+					border-top: 3px solid @mostaza;
+					background-color: white;
+				}
+				@media @mobile {
+					padding: 10px;
+				}
+
+				.direccion {
+					font-family: 'Baloo Tamma';
+					font-weight: lighter;
+					@media @mobile {
+						float: left;
+						text-align: left;
+						line-height: 14px;
+						margin: 0;
+					}
+				}
+
+				.telefono {
+					font-family: 'Baloo Tamma';
+					font-weight: lighter;
+					@media @mobile {
+						float: right;
+						line-height: 14px;
+						margin: 0;
+					}
+				}
+
+				p {
+					font-size: 11pt;
+					font-weight: lighter;
+					font-family: baloo tamma;
+					text-align: center;
+					@media @desktop {
+						color: @text;
+						margin: 0;
+					}
+				}	
+			}
+		}
+
+		.openClosedSign {
+			background: #990000;
+			color: white;
+			font-weight: bold;
+			padding-top: 1px;
+			text-align: center;
+
+			h3 {
+				@media @mobile {
+					margin: 0;
+				}
+
+				&.noOpenTime {
+					@media @mobile {
+						padding: 10px 10px 5px 10px;
+					}
+				}
+			}
+
+			p {
+				@media @mobile {
+					font-weight: bold;
+					font-family: "baloo tamma";
+					margin: 0;
+				}
+				@media @desktop {
+					position: absolute;
+					right: 10px;
+					top: 23px;
+					margin: 0;
+				}
+			}
+		}
+
+		.matchedProducts {
+			@media @desktop {
+				overflow: auto;
+				padding: 10px 10px 30px 10px;
+			}
+			@media @mobile {
+				padding: 10px 5px;
+			}
+
+			.product {
+				margin: 10px 0;
+				overflow: hidden;
+				@media @desktop {
+					padding-bottom: 10px;
+					border-bottom: dashed 1px lightgray;
+				}
+
+				&:last-child {
+					@media @desktop {
+						border-bottom: 0;
+					}
+				}
+
+				h5 {
+					margin: 0;
+
+					&.productName {
+						color: @text;
+						font-weight: bold;
+						overflow: hidden;
+						font-size: 16px;
+						padding-right: 10px;
+						margin-bottom: 2px;
+					}
+
+					&.descripcion {
+						font-size: 10pt;
+						color: @text;
+					}
+
+					&.price {
+						float: right;
+						font-family: 'Baloo Tamma';
+						font-weight: lighter;
+						color: @mostaza;
+						font-size: 16px;
+						position: relative;
+						top: 3px;
+					}
+				}
+			}
+		}	
+	}
+}
+
+// OOCSS
+
+.textAndLogo {
+	display: flex;
+	align-items: center;
+	flex-flow: column;
+	justify-content: space-around;
+	height: 80vh;
+	@media @desktop {
+		height: 60vh;
+	}
+}
+
+a[href^="tel:"] img {
+  background-color: hsla(88, 69%, 33%, 1);
+  width: 50px;
+  border: 2px solid white;
+  box-shadow: 0px 1px 1px 0px black;
+  border-radius: 35px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 10px;
+}
+.geoLocation img {
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 50px;
+  border: 2px solid white;
+  box-shadow: 0px 1px 1px 0px black;
+  border-radius: 35px;
+  position: absolute;
+  bottom: 10px;
+  right: 65px;
+  padding: 10px;
+}
+
+#resultsScreen .clientCard .clientInfo .contacto {
+	background: none;
+}
+
+/* RESULTS SCREEN */
+#resultsScreen .clientCard {
+  background-color: white;
+  position: relative;
+}
+@media only screen and (max-width: 600px), screen and (max-height: 500px) {
+  #resultsScreen .clientCard {
+    margin: 0 5px 20px;
+    overflow: hidden;
+  }
+}
+@media only screen and (min-width: 601px) and (min-height: 501px) {
+  #resultsScreen .clientCard {
+    width: 80%;
+    margin: 30px 10%;
+    min-height: 300px;
+  }
+}
+#resultsScreen .clientCard .clientInfo {
+  width: 100%;
+  height: 260px;
+  position: relative;
+}
+@media only screen and (min-width: 601px) and (min-height: 501px) {
+  #resultsScreen .clientCard .clientInfo {
+    position: static;
+    margin: 30px 10px;
+    float: left;
+    width: 250px;
+    height: 250px;
+  }
+}
+#resultsScreen .clientCard .clientInfo .clientImage {
+    width: 100.2%;
+    height: 260px;
+    background-image: url(../images/logo.png);
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.63);
+    font-size: 19pt;
+    font-weight: lighter;
+    font-family: baloo tamma;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.63);
+    line-height: 260px;
+}
+#resultsScreen .clientCard .clientInfo .contacto {
+  padding-right: 10px;
+  padding-left: 10px;
+  width: 100%;
+  @media @mobile {
+  	position: absolute;
+  	top: 240px;
+  }
+  @media @desktop {
+  	bottom: 5px;
+  }
+}
+@media only screen and (min-width: 601px) and (min-height: 501px) {
+  #resultsScreen .clientCard .clientInfo .contacto {
+    width: 253px;
+    margin-left: 9px;
+    border-top: 3px solid #f69323;
+    background-color: white;
+  }
+}
+@media only screen and (max-width: 600px), screen and (max-height: 500px) {
+  #resultsScreen .clientCard .clientInfo .contacto {
+    padding: 10px;
+  }
+}
+#resultsScreen .clientCard .clientInfo .contacto .direccion {
+  font-family: 'Baloo Tamma';
+  font-weight: lighter;
+}
+@media only screen and (max-width: 600px), screen and (max-height: 500px) {
+  #resultsScreen .clientCard .clientInfo .contacto .direccion {
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+    color: #2b1a06;
+    background: rgba(255, 255, 255, 0.68);
+    text-align: center;
+    line-height: 11px;
+    margin: 7px 29px 8px 0px;
+    padding: 10px 10px;
+    border-radius: 50px;
+    border: 1px solid white;
+  }
+}
+#resultsScreen .clientCard .clientInfo .contacto .telefono {
+  font-family: 'Baloo Tamma';
+  font-weight: lighter;
+}
+@media only screen and (max-width: 600px), screen and (max-height: 500px) {
+  #resultsScreen .clientCard .clientInfo .contacto .telefono {
+    float: right;
+    line-height: 14px;
+    margin: 0;
+  }
+}
+#resultsScreen .clientCard .clientInfo .contacto .direccion .link {
+  font-size: 11pt;
+  font-weight: lighter;
+  font-family: baloo tamma;
+  text-align: center;
+  text-decoration: none;
+  color: #2b1a06;
+}
+@media only screen and (min-width: 601px) and (min-height: 501px) {
+  #resultsScreen .clientCard .clientInfo .contacto .direccion {
+    color: #002448;
+    margin: 0;
+  }
+}
+#resultsScreen .clientCard .openClosedSign {
+  background: #990000;
+  color: white;
+  @media @desktop {
+  	font-weight: bold;
+  	font-family: "baloo tamma";
+  }
+  padding-top: 1px;
+  text-align: center;
+}
+@media only screen and (max-width: 600px), screen and (max-height: 500px) {
+  #resultsScreen .clientCard .openClosedSign {
+    position: absolute;
+    top: 0;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin: 10px;
+  }
+}
+@media only screen and (max-width: 600px), screen and (max-height: 500px) {
+  #resultsScreen .clientCard .openClosedSign h3 {
+    color: #fafafa;
+    margin: 0;
+  }
+}
+@media only screen and (max-width: 600px), screen and (max-height: 500px) {
+  #resultsScreen .clientCard .openClosedSign h3.noOpenTime {
+    color: #fafafa;
+    font-weight: lighter;
+    margin: 0;
+    padding: 0 10px;
+  }
+}
+@media only screen and (max-width: 600px), screen and (max-height: 500px) {
+  #resultsScreen .clientCard .openClosedSign p {
+    margin: 0;
+  }
+}
+@media only screen and (min-width: 601px) and (min-height: 501px) {
+  #resultsScreen .clientCard .openClosedSign p {
+    position: absolute;
+    right: 10px;
+    top: 23px;
+    margin: 0;
+  }
+}
+@media only screen and (min-width: 601px) and (min-height: 501px) {
+  #resultsScreen .clientCard .matchedProducts {
+    overflow: auto;
+    padding: 10px 10px 30px 10px;
+  }
+}
+@media only screen and (max-width: 600px), screen and (max-height: 500px) {
+  #resultsScreen .clientCard .matchedProducts {
+    padding: 10px;
+  }
+}
+#resultsScreen .clientCard .matchedProducts .product {
+  overflow: hidden;
+  padding: 10px 5px;
+  border-bottom: 1px solid #BDBDBD;
+}
+@media only screen and (min-width: 601px) and (min-height: 501px) {
+  #resultsScreen .clientCard .matchedProducts .product {
+    padding-bottom: 10px;
+    border-bottom: dashed 1px lightgray;
+  }
+}
+@media only screen and (min-width: 601px) and (min-height: 501px) {
+  #resultsScreen .clientCard .matchedProducts .product:last-child {
+    border-bottom: 0;
+  }
+}
+#resultsScreen .clientCard .matchedProducts .product h5 {
+  margin: 0;
+}
+#resultsScreen .clientCard .matchedProducts .product h5.productName {
+  color: #212121;
+  font-weight: bold;
+  overflow: hidden;
+  font-size: 16px;
+  padding-right: 10px;
+  margin-bottom: 2px;
+}
+#resultsScreen .clientCard .matchedProducts .product h5.descripcion {
+  font-size: 11pt;
+  color: #757575;
+}
+#resultsScreen .clientCard .matchedProducts .product h5.price {
+  float: right;
+  font-family: 'Baloo Tamma';
+  font-weight: lighter;
+  color: hsla(32, 100%, 44%, 1);
+  font-size: 18px;
+  position: relative;
+}
+.delivery {
+  	text-align: center;
+  	@media @desktop {
+		position: absolute;
+    	bottom: 5px;
+    	right: 15px;
+	}
+}
+.delivery .text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #757575;
+}
+
+/*Home*/
+.textAndLogo {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-flow: column;
+  flex-flow: column;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  height: 100vh;
+}
+@media only screen and (min-width: 601px) and (min-height: 501px) {
+  .textAndLogo {
+    height: 60vh;
+  }
+}
