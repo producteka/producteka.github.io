@@ -1,0 +1,1 @@
+<div ng-class="!loadComplete || clientsShown == null || noResults ? 'notShowingProducts' : ''"><div ng-if=!loadComplete id=loadingScreen class=textAndLogo><img src=assets/img/Rolling.gif id=loadingSpinner></div><div ng-if=loadComplete ng-cloak><search-bar></search-bar><ui-view></ui-view><footer></footer></div></div>
