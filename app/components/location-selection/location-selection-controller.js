@@ -1,1 +1,0 @@
-angular.module("app").controller("selectionController",["$scope","$location","fieldbookService",function(o,e,n){o.region,n.getRegions(function(e){o.regions=e})}]);

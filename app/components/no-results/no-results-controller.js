@@ -1,1 +1,0 @@
-angular.module("app").controller("noResultsController",["$scope",function(o){}]);
